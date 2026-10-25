@@ -9,11 +9,11 @@ export default function Header({ servicePage = false, onConsultationClick }) {
       <nav className="desktop-nav" aria-label="Main navigation">
         {navigation.map((item) => (
           <a
-            className={!servicePage && item === 'Home' ? 'active' : ''}
-            href={item === 'Home' ? '#home' : `#${item.toLowerCase()}`}
-            key={item}
+            className={!servicePage && item.name === 'Home' ? 'active' : ''}
+            href={item.href}
+            key={item.name}
           >
-            {item}
+            {item.name}
           </a>
         ))}
       </nav>
@@ -26,7 +26,7 @@ export default function Header({ servicePage = false, onConsultationClick }) {
         <summary aria-label="Open navigation menu"><span /><span /></summary>
         <nav aria-label="Mobile navigation">
           {navigation.map((item) => (
-            <a href={item === 'Home' ? '#home' : `#${item.toLowerCase()}`} key={item}>{item}</a>
+            <a href={item.href} key={item.name}>{item.name}</a>
           ))}
         </nav>
       </details>

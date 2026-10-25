@@ -16,6 +16,7 @@ function IndustryCard({ industry }) {
 export default function IndustriesSection() {
   return (
     <section className="industries-section" id="industries" aria-labelledby="industries-title">
+      <span id="expertise" aria-hidden="true" />
       <div className="industries-section__inner">
         <header className="industries-section__heading">
           <span className="industries-section__eyebrow">DOMAIN MASTERY</span>

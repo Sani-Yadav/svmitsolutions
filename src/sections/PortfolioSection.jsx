@@ -2,19 +2,51 @@ import React from 'react';
 import { caseStudies } from '../data/caseStudies';
 
 function CaseStudyCard({ study }) {
+  const isExternal = Boolean(study.href && /^https?:\/\//i.test(study.href));
   return (
     <article className="case-study-card">
       <div className="case-study-card__image-wrap">
-        <img src={study.image} alt={study.imageAlt} loading="lazy" />
+        {isExternal ? (
+          <a
+            href={study.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Visit ${study.title}`}
+            style={{ display: 'block', width: '100%' }}
+          >
+            <img src={study.image} alt={study.imageAlt} loading="lazy" />
+          </a>
+        ) : (
+          <img src={study.image} alt={study.imageAlt} loading="lazy" />
+        )}
         <span className="case-study-card__category">{study.category}</span>
       </div>
       <div className="case-study-card__content">
         <div className="case-study-card__tags" aria-label={`${study.title} technologies`}>
           {study.technologies.map((technology) => <span key={technology}>{technology}</span>)}
         </div>
-        <h3>{study.title}</h3>
+        <h3>
+          {isExternal ? (
+            <a
+              href={study.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: 'inherit', textDecoration: 'none' }}
+            >
+              {study.title}
+            </a>
+          ) : (
+            study.title
+          )}
+        </h3>
         <p>{study.description}</p>
-        <a href={study.href}>View Case Study <span aria-hidden="true">→</span></a>
+        <a
+          href={study.href}
+          target={isExternal ? '_blank' : undefined}
+          rel={isExternal ? 'noopener noreferrer' : undefined}
+        >
+          {isExternal ? 'Visit Live Project' : 'View Case Study'} <span aria-hidden="true">→</span>
+        </a>
       </div>
     </article>
   );
@@ -22,7 +54,8 @@ function CaseStudyCard({ study }) {
 
 export default function PortfolioSection() {
   return (
-    <section className="portfolio-section" id="portfolio" aria-labelledby="portfolio-title">
+    <section className="portfolio-section" id="projects" aria-labelledby="portfolio-title">
+      <span id="portfolio" aria-hidden="true" />
       <div className="portfolio-section__inner">
         <header className="portfolio-section__heading">
           <div className="portfolio-section__intro">
